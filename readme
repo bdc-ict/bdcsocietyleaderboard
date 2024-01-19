@@ -1,0 +1,18 @@
+How it works
+
+- We run api.php
+- api.php fetches the data from instagram, creates a JSON file with all the extracted data as results.json, and saves the profile pictures of the accounts in /images/
+- We display them through index.php
+
+How do I understand this?
+
+- Read api.php and index.php, the code is documented
+- Go through api_uncommented.php if you just wanna understand the workflow
+
+How do I use this for myself
+
+- Download the project
+- Install PHP on your computer. Use xampp if you are on Windows
+- Edit api.php to add your own accounts and login data
+- Follow instructions of Xampp to host a website
+- Personally though I would advise you learn from it and edit it yourself instead of trying to host a copy. But you do you
