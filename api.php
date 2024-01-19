@@ -1,38 +1,94 @@
 <?php
 
+/**
+ * This line of code imports the Instagram library.
+ * Please note that this is NOT a native library of PHP,
+ * meaning this isn't like the System.IO you import in VB.net, this was made by another 
+ * programmer.
+ * 
+ * Now you CAN make a program like this without the use of any external libraries, but Instagram's API
+ * is a mess to deal with as they impose a lot of restrictions on outsiders trying to extract their data.
+ * 
+ *  It is also easier this way for both the programmer and the viewer as we are doing the same thing in less lines.
+ */
 use Instagram\SDK\Instagram;
 
+/**
+ * These three lines basically allow all errors to be shown.
+ * You can ignore them, but I would advise you do not remove them while debugging or editing
+ * this software as PHP may hide errors even when there are many.
+ */
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+/**
+ * We are importing the modules/libraries we will use.
+ * 
+ * Basically there are a plethora of libraries created by others to use to ease programming.
+ * Libraries may handle a various number of tasks. For example, if you are building an application that
+ * requires you to deal with time differences, you can import a library that handles that and write less code as
+ * handling time manually may require a lot of logic but a popular library that does that can probably do it better
+ * than you as it is maintained by expert programmers and update regularly to keep up w industry standards.
+ * Libraries need to be imported, so software managers are used to import such libraries. The file I am importing
+ * here contains references to the Instagram library I called above.
+ * 
+ * If you have worked with PHP, you will know this is a Composer autoloader.
+ * I added the vendor folder as well in the repo so beginners won't have to deal with downloading composer.
+ */
 require_once __DIR__ . '/vendor/autoload.php';
 
+/**
+ * This is the function that gets the user's data.
+ */
 function getUserInfo($usernameToSearch, $loginInfo) {
 
+    /**
+     * This is a try catch block you did in A Level CS.
+     */
     try {
 
+        /**
+         * Attempt to login the account.
+         * AKA "try"
+         */
         $instagram = Instagram::builder()->build();
         $instagram->login($loginInfo["username"], $loginInfo["password"]);
 
+        /**
+         * Get the user.
+         */
         $response = $instagram->userByName($usernameToSearch)->getUser();
 
+        /**
+         * Create an array containing all the attributes and their values of the account.
+         */
         $returnArray = [
-            "followers" => $response->getFollowerCount(),
-            "following" => $response->getFollowingCount(),
+            "followers"       => $response->getFollowerCount(),
+            "following"       => $response->getFollowingCount(),
             "profile_pic_url" => $response->getProfilePictureUrl(),
-            "bio" => $response->getBiography(),
-            "name" => $response->getFullName(),
-            "username" => $response->getUsername(),
+            "bio"             => $response->getBiography(),
+            "name"            => $response->getFullName(),
+            "username"        => $response->getUsername(),
         ];
 
+        /**
+         * Return the array built above and conclude the function.
+         */
         return $returnArray;
-
+    
+    /**
+     * If we catch an error/exception, return false to let the function caller know that their
+     * request failed. We are only handling the rate limit exception here though.
+     */
     } catch (\Instagram\SDK\Exceptions\RateLimitResponseException $e) {
         return false;
     }
 }
 
+/**
+ * This is just a glorified print function. You can ignore this.
+ */
 function output($text) {
     if (gettype($text) == "array" OR gettype($text) == "object") {
         var_dump($text);
@@ -87,7 +143,7 @@ $loginList = [
 $currentAccount = 0;
 
 /**
- * We will append/push the data we extract from the accounts mentioned in $accountsList
+ * We will append/push the data we extract from the accounts mentioned in $accountsList.
  */
 $entireData = [];
 
