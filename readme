@@ -16,3 +16,12 @@ How do I use this for myself
 - Edit api.php to add your own accounts and login data
 - Follow instructions of Xampp to host a website
 - Personally though I would advise you learn from it and edit it yourself instead of trying to host a copy. But you do you
+
+File directory
+
+- /images/ - profile pictures of accounts
+- /vendor/ - contains code for libraries. you can ignore this. but do not delete it
+- api.php - code that fetches your account data
+- index.php - frontend login
+- api_uncommented.php - same as api.php but not commented, so a bit easier to read
+- results.json - file containing all data of accounts as json
